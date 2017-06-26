@@ -1,2 +1,2 @@
-# craftsmanship
-PosAm session
+# craftsmanship - gradle intro
+
