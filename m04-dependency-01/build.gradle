@@ -1,0 +1,27 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+//configurations.all {
+//    resolutionStrategy {
+//        failOnVersionConflict()
+//    }
+//}
+
+dependencies{
+    compile 'commons-cli:commons-cli:1.2'
+//    testCompile('junit:junit:4.+') {
+//        exclude group:'org.hamcrest'
+//    }
+    testCompile 'junit:junit:4.+'
+//  testCompile 'org.hamcrest:hamcrest-core:1.2'
+//  testCompile group:'org.hamcrest',name:'hamcrest-core', version:'1.2', force:true
+}
+	
+	
+

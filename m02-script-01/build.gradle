@@ -1,0 +1,43 @@
+apply plugin: 'java'
+
+apply from: 'tasks.gradle'
+
+println '======================================================='
+println '[INFO] This is executed during the configuration phase.'
+println '[INFO] Project name is ' + project.name
+println '======================================================='
+println ''
+
+
+check {
+    doLast {
+        println '========================================================================'
+        println '[INFO] This is executed as par of check task during the execution phase.'
+        println '========================================================================'
+    }
+}
+
+// This is the Groovy code
+def LOG_INFO = { println '[INFO] ' + it  }
+
+task myTask {
+    doFirst {
+        println '========================================================================'
+        println '[INFO] This is my Task.'
+        println '========================================================================'
+    }
+    doLast {
+        println '========================================================================'
+        LOG_INFO('Using Grrovy code to log message')
+        println '========================================================================'
+
+    }
+    println '=========================================================================='
+    println "[INFO] from $name:  This is also executed during the configuration phase."
+    println '=========================================================================='
+    println ''
+
+}
+
+
+

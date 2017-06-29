@@ -1,0 +1,42 @@
+apply plugin: 'java'
+
+// Set environment variables
+ext {
+    environment='qa'
+}
+
+// Task dependency example #1
+//task myTask (dependsOn: test)
+task myTask {
+    // Task dependency example #2
+    //dependsOn test
+    // Task logic should not be implemented here directly! Use doFirst, or doLast closures.
+    println '===================================================================='
+    println "[INFO] from $name:  This is executed during the configuration phase."
+    println '===================================================================='
+    println ''
+}
+
+myTask.doFirst { logger.info('##### doFirst: This is my Task.') }
+
+task mySecondTask {}
+
+// Task dependency example #3
+//build.dependsOn myTask
+
+// Task ordering example #1
+//assemble.finalizedBy myTask
+
+// Task ordering example #2
+//jar.dependsOn mySecondTask
+//jar.dependsOn myTask
+//mySecondTask.mustRunAfter myTask
+
+// Conditional task execution example
+// myTask.onlyIf { project.hasProperty('environment') && project.environment== 'qa'}
+
+
+
+
+
+

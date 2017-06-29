@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.apache.commons:commons-lang3:3.3.2'
+    }
+}
+import org.apache.commons.lang3.RandomStringUtils
+
+task randomString  {
+    doFirst {
+        String value = RandomStringUtils.randomAlphabetic(10)
+        println value
+    }
+}
+
+// -------------------------------------------------------------------
+apply plugin: 'java'
+apply plugin: 'project-report'
+
+repositories {
+    jcenter()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+ext.commonsCliVersion = '1.2'
+ext.junitVersion = '4.+'
+ext.libraries= [
+        cli:  "commons-cli:commons-cli:$commonsCliVersion",
+        junit: "junit:junit:$junitVersion",
+]
+
+dependencies{
+    compile libraries.cli
+    //compile files('/lib/commons-cli-1.2.jar')
+    testCompile libraries.junit
+}
+
+task dependencyFiles {
+    doLast {
+        configurations.testCompile.files.each { file ->
+            println file.name
+        }
+    }
+}
+	
+

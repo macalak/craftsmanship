@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+ext {
+    some_property="Some property"
+}
+task printProperties {
+    doFirst {
+        println "[INFO] Value of some_property is $some_property"
+        println "[INFO] Value of my_property is $my_property"
+        println "[INFO] Value of System property my_system_property is " + System.properties['my_system_property']
+    }
+}

@@ -1,0 +1,64 @@
+apply plugin: 'java'
+apply plugin: 'project-report'
+apply plugin: 'maven-publish'
+
+repositories {
+    jcenter()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+group = 'ite.gradle'
+version = "1.0.0"
+
+ext.commonsCliVersion = '1.2'
+ext.junitVersion = '4.+'
+ext.libraries= [
+        cli:  "commons-cli:commons-cli:$commonsCliVersion",
+        junit: "junit:junit:$junitVersion",
+]
+
+dependencies{
+    compile libraries.cli
+    //compile files('/lib/commons-cli-1.2.jar')
+    testCompile libraries.junit
+}
+
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+publishing {
+    repositories {
+//        maven {
+//            credentials {
+//                username "$artifactory_publish_username"
+//                password "$artifactory_publish_password"
+//            }
+//            url "$artifactory_publish_url"
+//        }
+        maven {
+            url "repository"
+        }
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+            sourcePublication(MavenPublication) {
+                from components.java
+                artifact sourceJar
+            }
+        }
+    }
+}
+
+publish {
+    dependsOn assemble
+}
+
+artifacts {
+    archives sourceJar
+}
+

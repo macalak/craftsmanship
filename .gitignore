@@ -1,0 +1,17 @@
+bin/
+out/
+build_gradle/
+build/
+classes/
+.gradle
+.settings
+.project
+.classpath
+.idea
+*.iml
+*.ipr
+*.iws
+*.bak
+*.pdf
+*.odp
+

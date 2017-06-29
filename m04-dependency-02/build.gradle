@@ -1,0 +1,39 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+ext.commonsCliVersion = '1.2'
+ext.junitVersion = '4.+'
+ext.libraries= [
+        cli:  "commons-cli:commons-cli:$commonsCliVersion",
+        junit: "junit:junit:$junitVersion",
+]
+
+dependencies{
+    compile libraries.cli
+    //compile files('/lib/commons-cli-1.2.jar')
+    testCompile libraries.junit
+}
+
+task dependencyFiles {
+    doLast {
+        configurations.testCompile.files.each { file ->
+            println file.name
+        }
+    }
+}
+
+task printDependencies (description: 'Where are jar files?')  {
+    doLast {
+        configurations.getByName('compile').each { dependency ->
+            println dependency
+        }
+    }
+}
+	
+

@@ -1,0 +1,27 @@
+apply plugin: 'java'
+
+task generator() {
+    def fileCount = 4
+    inputs.property "fileCount", fileCount
+    def generatedFileDir = file("$buildDir/generated")
+    outputs.dir generatedFileDir
+
+    doLast {
+        generatedFileDir.mkdirs()
+        for (int i=0; i<fileCount; i++) {
+            new File(generatedFileDir, "${i}.txt").text = i
+        }
+    }
+}
+
+task zip(type: Zip) {
+    archiveName 'generator.zip'
+    from generator
+}
+
+task helloAnt {
+    doLast {
+        String greeting = 'hello from Ant'
+        ant.echo(message: greeting)
+    }
+}
